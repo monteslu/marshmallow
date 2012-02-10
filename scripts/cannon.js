@@ -299,13 +299,13 @@ http://azprogrammer.com
                 var entity = world[id];
                 if (entity){
                 	try{
-						if(entity.y > 100){
-							box.removeBody(id);
-							//console.log('deleted',id);
-							delete world[id];
-						}else{
-							entity.update(bodiesState[id]);
-						}
+				if(entity.y > 100){
+					box.removeBody(id);
+					//console.log('deleted',id);
+					delete world[id];
+				}else{
+					entity.update(bodiesState[id]);
+				}
 						
                 	}catch(eu){
                 		console.log(entity,bodiesState[id], eu);
@@ -314,8 +314,8 @@ http://azprogrammer.com
                 	
               }
               if(debug){
-				stats.update();
-			  }
+		stats.update();
+	      }
 			  
 			  millisToMarshPassed+= elapsedTime;
 			  if(millisToMarshPassed > millisToMarsh){
@@ -326,7 +326,7 @@ http://azprogrammer.com
 				img : marshImg,statidBody: false, restitution: 0.5}
 				);
 				box.addBody(marsh); 
-		        extraObjs.push(marsh);
+				//extraObjs.push(marsh);
 				world[geomId] = marsh;
 			  }
 			  }catch(updateE){
@@ -336,12 +336,7 @@ http://azprogrammer.com
 			  
           },
           draw: function(ctx){
-        	  ctx.lineWidth = 1;
-              ctx.clearRect ( 0 , 0 , this.width, this.height);
               ctx.drawImage(backImg,0, 0, this.width, backImg.height);
-              
-              
-
               
               for (var id in world) {
                   var entity = world[id];
@@ -349,13 +344,6 @@ http://azprogrammer.com
                   	entity.draw(ctx);
                   }
                 }
-                
-              dojo.forEach(extraObjs,function(extraObj){
-                if(!extraObj.hidden || showHidden){
-                    extraObj.draw(ctx);
-                  }
-              });
-              
               
              
              ctx.drawImage(foreImg,0, 0, this.width, foreImg.height);
@@ -378,10 +366,9 @@ http://azprogrammer.com
     		            var b2dshape = new mwe.box2d.PolygonEntity(shape);
     		            b2dshape.id = geomId;
     		            box.addBody(b2dshape); 
-		                extraObjs.push(b2dshape);
-		                //world[b2dshape.geomId] = b2dshape;
+		            world[b2dshape.geomId] = b2dshape;
     		        }
-    		    });
+    	});
 	  
       game.run();
       
